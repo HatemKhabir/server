@@ -32,6 +32,8 @@ export const updateTotalXp = async (req, res) => {
     try {
         let { username, xpCount } = req.body;
         const user = await User.findOne({ username: username });
+        if (user.Premium == true)
+        xpCount = 2*xpCount
         user.xp = user.xp + xpCount;
         const xpBadge = user.badgeIds.find(badge => badge.badgeId === 0);
         if (xpBadge) {
@@ -94,6 +96,8 @@ export const updateFitnessXP=async(req,res)=>{
     try {
         let {username,fitnessXpAPI}=req.body
         const user=await User.findOne({username:username});
+        if (user.Premium == true)
+        fitnessXpAPI = 2*fitnessXpAPI
         user.fitnessXP=user.fitnessXP+fitnessXpAPI;
         const fitenssBadge=user.badgeIds.find(badge=>badge.badgeId===1)
         if (fitenssBadge){
@@ -121,6 +125,8 @@ export const updateKnowledgeXP=async(req,res)=>{
     try {
         let {username,knowledgeXpEarned}=req.body
         const user=await User.findOne({username:username});
+        if (user.Premium == true)
+        knowledgeXpEarned = 2*knowledgeXpEarned
         user.knowledgeXP=user.knowledgeXP+knowledgeXpEarned;
         const knowledgeBadge=user.badgeIds.find(badge=>badge.badgeId===2)
         if (knowledgeBadge){
