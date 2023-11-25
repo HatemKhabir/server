@@ -58,6 +58,38 @@ export const updateTotalXp = async (req, res) => {
 };
 
 
+
+export const updateQuizz=async(req,res)=> {
+
+try {
+        let {username,answer} = req.body
+        const user=await User.findOne({username:username})       
+
+
+    fetch('https://opentdb.com/api.php?amount=6&category=21&difficulty=medium&type=boolean'
+    ).then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        return response.json()
+      }).then(ranswer => {
+                if (ranswer.ToUpperCase() == answer.ToUpperCase()){
+                    updateTotalXp(username,100)
+                }
+
+
+      })
+
+
+}
+catch (error) {
+    res.status(403).json({msg:error.message})
+}
+
+}
+
+
+
 export const updateFitnessXP=async(req,res)=>{
     try {
         let {username,fitnessXpAPI}=req.body
